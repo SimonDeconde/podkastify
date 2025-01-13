@@ -16,7 +16,6 @@ export type PodcastEntryDto = {
   image: string;
   durationMs: number;
   b2Path: string;
-  downloadUrl: string;
 };
 
 export const podcastEntryToDto = (podcastEntry: PodcastEntry) => {
@@ -36,6 +35,5 @@ export const podcastEntryToDto = (podcastEntry: PodcastEntry) => {
     image: podcastEntry.image,
     durationMs: podcastEntry.durationMs,
     b2Path: podcastEntry.b2Path,
-    downloadUrl: `https://f005.backblazeb2.com/file/dev-podkastify/${podcastEntry.b2Path}`,
   } as PodcastEntryDto;
 };

@@ -242,6 +242,7 @@ export class PodcastEntryService {
           data: {
             b2Path: filename,
             status: PodcastEntryStatus.ready,
+            url: `https://f005.backblazeb2.com/file/dev-podkastify/${filename}`,
           },
         });
 

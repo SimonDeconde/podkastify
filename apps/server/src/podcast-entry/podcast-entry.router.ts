@@ -26,7 +26,10 @@ export class PodcastEntryRouter {
           .protectedProcedure()
           .input(PodcastEntryCreateDto)
           .mutation(async ({ input, ctx }) => {
-            return this.podcastEntryService.createFromUrl(input.url, ctx.user);
+            return this.podcastEntryService.createFromUrl(
+              input.importUrl,
+              ctx.user,
+            );
           }),
 
         // update podcastEntry

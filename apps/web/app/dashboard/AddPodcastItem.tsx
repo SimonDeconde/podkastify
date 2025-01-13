@@ -7,21 +7,14 @@ import {
   PodcastEntryCreateDto,
   PodcastEntryCreateDtoType,
 } from '@server/podcast-entry/podcast-entry.dto';
-import { RoutePath } from '@shared/route-path';
 import { useTrpc } from '@web/contexts/TrpcContext';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { useUserContext } from '../user/UserContext';
 
 type Props = {};
 
 export default function AddPodcastItem({}: Props) {
-  const router = useRouter();
   const { trpc } = useTrpc();
-
-  const { currentUser } = useUserContext();
 
   const {
     register,
@@ -32,16 +25,10 @@ export default function AddPodcastItem({}: Props) {
   } = useForm<PodcastEntryCreateDtoType>({
     resolver: zodResolver(PodcastEntryCreateDto),
     defaultValues: {
-      url: '',
+      importUrl: '',
     },
   });
   const createPodcastEntry = trpc.podcastEntryRouter.create.useMutation();
-
-  useEffect(() => {
-    if (currentUser) {
-      router.push(RoutePath.DASHBOARD);
-    }
-  }, [currentUser, router]);
 
   return (
     <>
@@ -71,13 +58,13 @@ export default function AddPodcastItem({}: Props) {
             <div className="space-between flex gap-4">
               <div className="flex-1">
                 <Input
-                  type="url"
+                  type="text"
                   label="Url"
                   isRequired={true}
-                  color={Boolean(errors.url) ? 'danger' : undefined}
-                  isInvalid={Boolean(errors.url)}
-                  errorMessage={errors.url?.message}
-                  {...register('url', { required: true })}
+                  color={Boolean(errors.importUrl) ? 'danger' : undefined}
+                  isInvalid={Boolean(errors.importUrl)}
+                  errorMessage={errors.importUrl?.message}
+                  {...register('importUrl', { required: true })}
                 />
               </div>
             </div>

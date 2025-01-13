@@ -10,7 +10,6 @@ import _ from 'lodash';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { toast } from 'sonner';
 
@@ -322,65 +321,6 @@ export default function DashboardUserView() {
                   Phone
                 </label>
               </div>
-            </div>
-            {/* End Col */}
-            <div className="sm:col-span-9">
-              <div className="sm:flex ">
-                <PhoneInput
-                  country={'us'}
-                  value={data.phone}
-                  onChange={(phone) => setValue('phone', phone)}
-                />
-              </div>
-              {errors.phone && (
-                <p className="mt-2 pl-2 text-sm text-red-600">
-                  {errors.phone.message}
-                </p>
-              )}
-            </div>
-            {/* End Col */}
-            <div className="sm:col-span-3">
-              <label
-                htmlFor="af-account-gender-checkbox"
-                className="mt-2.5 inline-block text-sm text-gray-800 dark:text-gray-200"
-              >
-                Gender
-              </label>
-            </div>
-            {/* End Col */}
-            <div className="sm:col-span-9">
-              <div className="sm:flex">
-                <select
-                  {...register('gender')}
-                  className="block w-full rounded-lg border-gray-200 px-3 py-2 pe-9 text-sm shadow-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-700 dark:bg-slate-900 dark:text-gray-400 dark:focus:ring-gray-600"
-                >
-                  <option disabled value="">
-                    -- select a gender --
-                  </option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="others">Others</option>
-                </select>
-              </div>
-            </div>
-            {/* End Col */}
-            <div className="sm:col-span-3">
-              <label
-                htmlFor="af-account-bio"
-                className="mt-2.5 inline-block text-sm text-gray-800 dark:text-gray-200"
-              >
-                Bio
-              </label>
-            </div>
-            {/* End Col */}
-            <div className="sm:col-span-9">
-              <textarea
-                {...register('bio')}
-                className="block w-full rounded-lg border-gray-200 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-700 dark:bg-slate-900 dark:text-gray-400 dark:focus:ring-gray-600"
-                rows={6}
-                placeholder="Type your message..."
-                defaultValue={''}
-              />
             </div>
             {/* End Col */}
           </div>

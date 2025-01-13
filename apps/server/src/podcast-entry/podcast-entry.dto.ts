@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const PodcastEntryCreateDto = z.object({
-  url: z.string(),
+  importUrl: z.string(),
 });
 export type PodcastEntryCreateDtoType = z.infer<typeof PodcastEntryCreateDto>;
 

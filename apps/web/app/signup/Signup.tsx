@@ -6,10 +6,9 @@ import { Button } from '@nextui-org/button';
 import { Input } from '@nextui-org/input';
 import { UserSignupDto, UserSignupDtoType } from '@server/user/user.dto';
 import { RoutePath } from '@shared/route-path';
-import { LoadingSpinner } from '@web/components/LoadingSpinner';
 import { useTrpc } from '@web/contexts/TrpcContext';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useUserContext } from '../user/UserContext';
@@ -19,7 +18,6 @@ type Props = {};
 export default function Signup({}: Props) {
   const router = useRouter();
   const { trpc } = useTrpc();
-  const searchParams = useSearchParams();
 
   const [isVisible, setIsVisible] = useState(false);
 
@@ -30,11 +28,9 @@ export default function Signup({}: Props) {
     register,
     formState: { errors },
     handleSubmit,
-    setValue,
   } = useForm<UserSignupDtoType>({
     resolver: zodResolver(UserSignupDto),
     defaultValues: {
-      communityId: undefined,
       firstName: '',
       lastName: '',
       email: '',
@@ -53,29 +49,12 @@ export default function Signup({}: Props) {
     }
   }, [currentUser, router]);
 
-  const communityTicker = searchParams.get('community');
-
-  let community = undefined;
-  if (communityTicker) {
-    const communityPayload = trpc.communityRouter.findByTicker.useQuery({
-      ticker: communityTicker,
-    });
-
-    if (!communityPayload.data) {
-      return <LoadingSpinner />;
-    }
-
-    community = communityPayload.data;
-
-    setValue('communityId', community.id);
-  }
-
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
-            Sign up for Sociable Spark {community ? `@ ${community.name}` : ''}
+            Sign up for Podkastify
           </h2>
         </div>
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -88,12 +67,6 @@ export default function Signup({}: Props) {
               }
             })}
           >
-            <input
-              id="communityId"
-              type="hidden"
-              {...register('communityId')}
-            />
-
             <div className="space-between flex gap-4">
               <div className="flex-1">
                 <Input
