@@ -24,8 +24,6 @@ services:
         value: 3000
       - key: NEXT_PUBLIC_TRPC_URL
         sync: false # provide this in the Render dashboard.
-      - key: INVITATION_EXPIRY_TTL_HOURS
-        sync: false # provide this in the Render dashboard.
 
   - type: web
     name: podkastify-api
@@ -36,9 +34,8 @@ services:
     ## 👇 Preview Environment Initialization script:
     # initialDeployHook: pnpm db-seed
     buildCommand: |
+      pip install yt-dlp ffmpeg ffprobe &&
       pnpm install &&
-      curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp &&
-      chmod a+rx /usr/local/bin/yt-dlp &&
       pnpm db:migrate:deploy &&
       pnpm build
     startCommand: pnpm --filter=server prod
