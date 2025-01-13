@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String         @id @default(uuid())
+  firstName       String?
+  lastName        String?
+  email           String         @unique
+  password        String
+  profilePicUrl   String?
+  status          String         @default("active")
+  createdAt       DateTime       @default(now())
+  verifiedAt      DateTime?
+  updatedAt       DateTime       @updatedAt
+  deletedAt       DateTime?
+  roles           Role[]         @relation("UserRoles")
+  podcastEntries  PodcastEntry[]
+}
+
+model PodcastEntry {
+  id              String         @id @default(uuid())
+  userId          String
+  status          PodcastEntryStatus
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  importUrl       String
+  url             String?
+  author          String?
+  owner           String?
+  title           String?
+  description     String?
+  language        String?
+  pubDate         DateTime?
+  image           String?
+  durationMs      Int?
+  processingLog   String?
+  processingTimeMs Int?
+  b2Path          String?
+  user            User           @relation(fields: [userId], references: [id])
+}
+
+enum PodcastEntryStatus {
+  pending
+  processing
+  ready
+  error
+}
+
+model Role {
+  id    String    @id @default(uuid())
+  name  String    @unique
+  users User[]    @relation("UserRoles")
+}

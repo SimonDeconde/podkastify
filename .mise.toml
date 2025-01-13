@@ -1,0 +1,15 @@
+[env]
+# supports arbitrary env vars so mise can be used like direnv/dotenv
+
+[tools]
+# supports everything you can do with .tool-versions currently
+node = '20.11.0'
+awscli = '2.17.59'
+pnpm = '9.15.0'
+
+[plugins]
+# specify a custom repo url
+# note this will only be used if the plugin does not already exist
+
+[alias.node]
+# project-local aliases

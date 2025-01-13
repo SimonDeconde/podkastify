@@ -1,0 +1,20 @@
+<p>Hey <%= firstName %>,</p>
+<p>
+  You've been randomly invited to
+  <a href="<%= eventUrl %>"><%= eventName %></a>.
+</p>
+<ul>
+  <li>When: <%= eventDate %></li>
+  <li>Where: <%= eventLocation %></li>
+</ul>
+
+<p>
+  Please accept <a href="<%= invitationUrl %>">your invitation</a> within <%=
+  invitationExpirationHours %> hour(s). After that, it'll be automatically
+  voided so that we can invite the next guest.
+</p>
+
+<p>
+  Can't make it? <a href="<%= invitationUrl %>">Decline the invite</a> to stop
+  receiving reminders.
+</p>

@@ -1,0 +1,33 @@
+{
+  "dependencies": {
+    "@nestjs/mapped-types": "^2.0.5",
+    "feed": "^4.2.2"
+  },
+  "name": "podkastify",
+  "version": "0.2.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "pnpm run --parallel dev",
+    "build": "pnpm run --parallel build",
+    "prod": "pnpm run --parallel prod",
+    "prod:docker": "docker-compose -f docker-compose.production.yml up",
+    "db:generate": "pnpm run --parallel db:generate",
+    "db:migrate": "pnpm run --filter=server db:migrate",
+    "db:migrate:deploy": "pnpm run --filter=server db:migrate:deploy",
+    "db:seed": "pnpm run --filter=server db:seed",
+    "test-dl": "pnpm run --filter=server test-dl",
+    "db:reset": "pnpm run --filter=server db:reset",
+    "db:reset-skydeck": "pnpm run --filter=server db:reset-skydeck",
+    "test-service": "pnpm run --filter=server test-service"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest-mock-extended": "^3.0.7",
+    "jest-ts-auto-mock": "^2.1.0",
+    "ts-auto-mock": "^3.7.3",
+    "ts-patch": "^3.1.2"
+  }
+}

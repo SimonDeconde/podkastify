@@ -1,0 +1,101 @@
+'use client';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@nextui-org/button';
+import { Input } from '@nextui-org/input';
+import {
+  PodcastEntryCreateDto,
+  PodcastEntryCreateDtoType,
+} from '@server/podcast-entry/podcast-entry.dto';
+import { RoutePath } from '@shared/route-path';
+import { useTrpc } from '@web/contexts/TrpcContext';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { useUserContext } from '../user/UserContext';
+
+type Props = {};
+
+export default function AddPodcastItem({}: Props) {
+  const router = useRouter();
+  const { trpc } = useTrpc();
+
+  const { currentUser } = useUserContext();
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    setValue,
+    reset,
+  } = useForm<PodcastEntryCreateDtoType>({
+    resolver: zodResolver(PodcastEntryCreateDto),
+    defaultValues: {
+      url: '',
+    },
+  });
+  const createPodcastEntry = trpc.podcastEntryRouter.create.useMutation();
+
+  useEffect(() => {
+    if (currentUser) {
+      router.push(RoutePath.DASHBOARD);
+    }
+  }, [currentUser, router]);
+
+  return (
+    <>
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
+            Add new entry
+          </h2>
+        </div>
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form
+            className="space-y-6"
+            onSubmit={handleSubmit(async (data) => {
+              try {
+                const response = await createPodcastEntry.mutateAsync(data);
+                console.log(response);
+
+                toast.success('Podcast entry added successfully');
+                reset();
+              } catch (e) {
+                toast.error(
+                  'A problem occurred while trying to import this URL',
+                );
+              }
+            })}
+          >
+            <div className="space-between flex gap-4">
+              <div className="flex-1">
+                <Input
+                  type="url"
+                  label="Url"
+                  isRequired={true}
+                  color={Boolean(errors.url) ? 'danger' : undefined}
+                  isInvalid={Boolean(errors.url)}
+                  errorMessage={errors.url?.message}
+                  {...register('url', { required: true })}
+                />
+              </div>
+            </div>
+            <Button
+              color="primary"
+              type="submit"
+              isLoading={createPodcastEntry.isLoading}
+            >
+              Import
+            </Button>
+          </form>
+          {createPodcastEntry.error && (
+            <p className="mt-2 text-center text-sm text-red-600">
+              {createPodcastEntry.error.message}
+            </p>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
