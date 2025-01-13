@@ -8,7 +8,6 @@ import {
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class DmsService {
@@ -160,38 +159,38 @@ export class DmsService {
     }
   }
 
-  async uploadMultiplePublicFiles(files: Express.Multer.File[]) {
-    try {
-      const uploadPromises = files.map(async (file) => {
-        const key = `${uuidv4()}`;
+  // async uploadMultiplePublicFiles(files: Express.Multer.File[]) {
+  //   try {
+  //     const uploadPromises = files.map(async (file) => {
+  //       const key = `${uuidv4()}`;
 
-        const command = new PutObjectCommand({
-          Bucket: this.bucketName,
-          Key: key,
-          Body: file.buffer,
-          ContentType: file.mimetype,
-          ACL: 'public-read',
-        });
+  //       const command = new PutObjectCommand({
+  //         Bucket: this.bucketName,
+  //         Key: key,
+  //         Body: file.buffer,
+  //         ContentType: file.mimetype,
+  //         ACL: 'public-read',
+  //       });
 
-        const uploadResult = await this.client.send(command);
+  //       const uploadResult = await this.client.send(command);
 
-        console.log(
-          `File uploaded to S3: ${file.originalname} - ${uploadResult.ETag}`,
-        );
+  //       console.log(
+  //         `File uploaded to S3: ${file.originalname} - ${uploadResult.ETag}`,
+  //       );
 
-        // this.logger.debug(
-        //   `File uploaded to S3: ${file.originalname} - ${uploadResult.ETag}`,
-        // );
+  //       // this.logger.debug(
+  //       //   `File uploaded to S3: ${file.originalname} - ${uploadResult.ETag}`,
+  //       // );
 
-        return {
-          url: (await this.getFileUrl(key)).url,
-        };
-      });
+  //       return {
+  //         url: (await this.getFileUrl(key)).url,
+  //       };
+  //     });
 
-      return Promise.all(uploadPromises);
-    } catch (error) {
-      // this.logger.error(error);
-      throw new InternalServerErrorException(error);
-    }
-  }
+  //     return Promise.all(uploadPromises);
+  //   } catch (error) {
+  //     // this.logger.error(error);
+  //     throw new InternalServerErrorException(error);
+  //   }
+  // }
 }
