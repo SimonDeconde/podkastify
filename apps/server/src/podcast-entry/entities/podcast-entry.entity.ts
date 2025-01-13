@@ -6,16 +6,16 @@ export type PodcastEntryDto = {
   createdAt: Date;
   updatedAt: Date;
   importUrl: string;
-  url: string;
-  author: string;
-  owner: string;
-  title: string;
-  description: string;
-  language: string;
-  pubDate: Date;
-  image: string;
-  durationMs: number;
-  b2Path: string;
+  url?: string;
+  author?: string;
+  owner?: string;
+  title?: string;
+  description?: string;
+  language?: string;
+  pubDate?: Date;
+  image?: string;
+  durationMs?: number;
+  b2Path?: string;
 };
 
 export const podcastEntryToDto = (podcastEntry: PodcastEntry) => {

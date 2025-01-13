@@ -4,14 +4,14 @@ import { Roles } from '@shared/interfaces';
 import WithAuth from '@web/components/WithAuth';
 import AddPodcastItem from './AddPodcastItem';
 import { DashboardNavigation } from './DashboardNavigation';
-import MyItems from './MyItems';
+import MyPodcastItems from './MyPodcastItems';
 
 const Dashboard = () => {
   return (
     <>
       <DashboardNavigation />
       <AddPodcastItem />
-      <MyItems />
+      <MyPodcastItems />
     </>
   );
 };

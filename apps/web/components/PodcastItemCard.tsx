@@ -15,9 +15,9 @@ export const PodcastItemCard = ({ item }: Props) => {
           {/* <Avatar isBordered radius="full" size="md" name={community.ticker} /> */}
           <div className="flex flex-col items-start justify-center gap-1">
             <h4 className="text-small font-semibold leading-none text-default-600">
-              <Link color="foreground" href={item.url}>
+              <Link color="foreground" href={item.url ?? 'PROBLEM!!'}>
                 {item.title}
-                <br /> {formatDateTime(item.pubDate)}
+                <br /> {item.pubDate ? formatDateTime(item.pubDate) : '--'}
               </Link>
             </h4>
           </div>

@@ -4,7 +4,7 @@ import { LoadingSpinner } from '@web/components/LoadingSpinner';
 import { PodcastItemCard } from '@web/components/PodcastItemCard';
 import { useTrpc } from '@web/contexts/TrpcContext';
 
-export default function MyItems() {
+export default function MyPodcastItems() {
   const { trpc } = useTrpc();
 
   const myItemsPayload =
