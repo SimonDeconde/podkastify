@@ -13,6 +13,9 @@ import {
   PodcastEntryUpdateDtoType,
 } from './podcast-entry.dto';
 
+const SOCKS5_PROXY_URL =
+  'socks5h://user-sp2yo7oa53-session-1:YihOtT2q2gx=95vTri@gate.smartproxy.com:7000';
+
 @Injectable()
 /**
  * PodcastEntryService handles CRUD operations for PodcastEntries.
@@ -155,7 +158,7 @@ export class PodcastEntryService {
   }
 
   private async getVideoMetadata(url: string): Promise<string[]> {
-    const command = `yt-dlp --simulate --print "%(title)s|||%(duration)s" ${url}`;
+    const command = `yt-dlp --proxy ${SOCKS5_PROXY_URL} --socket-timeout 5 --simulate --print "%(title)s|||%(duration)s" ${url}`;
     const { stdout } = await this.executeCommand(command);
 
     const data = stdout.split('|||');
@@ -175,7 +178,7 @@ export class PodcastEntryService {
     const uuid = uuidv4();
     const filename = `${uuid}.mp3`;
     const filepath = `/tmp/${filename}`;
-    const command = `yt-dlp --proxy socks5h://user-sp2yo7oa53-session-1:YihOtT2q2gx=95vTri@gate.smartproxy.com:7000 --socket-timeout 5 -x --audio-format mp3 --write-description --write-info-json --no-progress --rm-cache-dir -v --extractor-args "youtube:player-client=tv;formats=incomplete" --output ${filepath} ${url}`;
+    const command = `yt-dlp --proxy ${SOCKS5_PROXY_URL} --socket-timeout 5 -x --audio-format mp3 --write-description --write-info-json --no-progress --rm-cache-dir -v --extractor-args "youtube:player-client=tv;formats=incomplete" --output ${filepath} ${url}`;
 
     // 198.23.239.134:6540: PO required
 
