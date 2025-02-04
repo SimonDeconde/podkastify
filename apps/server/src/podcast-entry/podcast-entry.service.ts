@@ -175,7 +175,9 @@ export class PodcastEntryService {
     const uuid = uuidv4();
     const filename = `${uuid}.mp3`;
     const filepath = `/tmp/${filename}`;
-    const command = `yt-dlp -x --audio-format mp3 --write-description --write-info-json --no-progress --rm-cache-dir -v --extractor-args "youtube:player-client=tv;formats=incomplete" --output ${filepath} ${url}`;
+    const command = `yt-dlp --proxy socks5h://user-sp2yo7oa53-session-1:YihOtT2q2gx=95vTri@gate.smartproxy.com:7000 --socket-timeout 5 -x --audio-format mp3 --write-description --write-info-json --no-progress --rm-cache-dir -v --extractor-args "youtube:player-client=tv;formats=incomplete" --output ${filepath} ${url}`;
+
+    // 198.23.239.134:6540: PO required
 
     const videoMetadata = await this.getVideoMetadata(url);
 

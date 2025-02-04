@@ -18,6 +18,7 @@ export const PodcastItemCard = ({ item }: Props) => {
               <Link color="foreground" href={item.url ?? 'PROBLEM!!'}>
                 {item.title}
                 <br /> {item.pubDate ? formatDateTime(item.pubDate) : '--'}
+                <br /> {item.status}
               </Link>
             </h4>
           </div>
