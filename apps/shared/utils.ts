@@ -41,5 +41,5 @@ export const formatDateTimeSpan = (fromDt: Date, toDt: Date): string => {
 };
 
 export const formatDateTime = (dt: Date): string => {
-  return `${format(dt, "E, LLL d, y ha")}`;
+  return `${format(dt, "E, LLL d, y HH:mm:ss")}`;
 };

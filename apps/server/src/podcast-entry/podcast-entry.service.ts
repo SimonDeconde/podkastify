@@ -92,7 +92,7 @@ export class PodcastEntryService {
         userId: requestUser.id,
       },
       orderBy: {
-        createdAt: 'asc',
+        createdAt: 'desc',
       },
     });
 
@@ -154,6 +154,16 @@ export class PodcastEntryService {
     return output;
   }
 
+  private async getVideoMetadata(url: string): Promise<string[]> {
+    const command = `yt-dlp --simulate --print "%(title)s|||%(duration)s" ${url}`;
+    const { stdout } = await this.executeCommand(command);
+
+    const data = stdout.split('|||');
+    console.log('getVideoMetadata data', data);
+
+    return data;
+  }
+
   /**
    * Creates a new podcastentry from a given URL, and uploads the file to the DMS.
    *
@@ -165,92 +175,95 @@ export class PodcastEntryService {
     const uuid = uuidv4();
     const filename = `${uuid}.mp3`;
     const filepath = `/tmp/${filename}`;
-    const command = `yt-dlp -x --audio-format mp3 --write-description --write-info-json --no-progress --output ${filepath} ${url}`;
+    const command = `yt-dlp -x --audio-format mp3 --write-description --write-info-json --no-progress --rm-cache-dir -v --extractor-args "youtube:player-client=tv;formats=incomplete" --output ${filepath} ${url}`;
+
+    const videoMetadata = await this.getVideoMetadata(url);
 
     const podcastEntry = await this.prismaService.podcastEntry.create({
       data: {
         userId: requestUser.id,
         importUrl: url,
         status: PodcastEntryStatus.pending,
-        title: uuid,
+        title: videoMetadata[0],
+        durationMs: parseInt(videoMetadata[1], 10) * 1000,
         pubDate: new Date(),
         description: 'Imported from URL',
       },
     });
 
-    await new Promise((resolve, reject) => {
-      // Run command.
-      exec(command, async (error, stdout, stderr) => {
-        await this.prismaService.podcastEntry.update({
-          where: {
-            id: podcastEntry.id,
-          },
-          data: {
-            status: PodcastEntryStatus.processing,
-          },
-        });
+    const { stdout, stderr, error } = await this.executeCommand(command);
 
-        console.log('stdout', stdout);
-        console.log('stderr', stderr);
-
-        if (error) {
-          console.error(`exec error: ${error}`);
-
-          await this.prismaService.podcastEntry.update({
-            where: {
-              id: podcastEntry.id,
-            },
-            data: {
-              status: PodcastEntryStatus.error,
-              processingLog: error.message,
-            },
-          });
-
-          reject(error);
-          return;
-        }
-        // const filename = stdout.trim().split('\n').pop();
-        // if (!filename) {
-        //   console.error('No file generated');
-        //   reject(new Error('No file generated'));
-        //   return;
-        // }
-        const buffer = await this.streamToBuffer(createReadStream(filepath));
-
-        await this.prismaService.podcastEntry.update({
-          where: {
-            id: podcastEntry.id,
-          },
-          data: {
-            processingLog: stdout,
-            // TODO: update this!
-            processingTimeMs: 123456,
-          },
-        });
-
-        await this.dmsService.uploadSingleFile({
-          key: filename,
-          buffer,
-          mimeType: 'audio/mp3',
-          isPublic: true,
-        });
-
-        await this.prismaService.podcastEntry.update({
-          where: {
-            id: podcastEntry.id,
-          },
-          data: {
-            b2Path: filename,
-            status: PodcastEntryStatus.ready,
-            url: `https://f005.backblazeb2.com/file/dev-podkastify/${filename}`,
-          },
-        });
-
-        resolve(true);
-      });
+    await this.prismaService.podcastEntry.update({
+      where: {
+        id: podcastEntry.id,
+      },
+      data: {
+        status: PodcastEntryStatus.processing,
+      },
     });
 
+    console.log('createFromUrl stdout', stdout);
+    console.log('createFromUrl stderr', stderr);
+
+    if (error) {
+      console.error(`exec error: ${error}`);
+
+      await this.prismaService.podcastEntry.update({
+        where: {
+          id: podcastEntry.id,
+        },
+        data: {
+          status: PodcastEntryStatus.error,
+          processingLog: error,
+        },
+      });
+    } else {
+      const buffer = await this.streamToBuffer(createReadStream(filepath));
+
+      await this.prismaService.podcastEntry.update({
+        where: {
+          id: podcastEntry.id,
+        },
+        data: {
+          processingLog: stdout,
+          // TODO: update this!
+          processingTimeMs: 123456,
+        },
+      });
+
+      await this.dmsService.uploadSingleFile({
+        key: filename,
+        buffer,
+        mimeType: 'audio/mp3',
+        isPublic: true,
+      });
+
+      await this.prismaService.podcastEntry.update({
+        where: {
+          id: podcastEntry.id,
+        },
+        data: {
+          b2Path: filename,
+          status: PodcastEntryStatus.ready,
+          url: `https://f005.backblazeb2.com/file/dev-podkastify/${filename}`,
+        },
+      });
+    }
     return podcastEntry;
+  }
+
+  private async executeCommand(
+    command: string,
+  ): Promise<{ stdout: string; stderr: string; error: string | null }> {
+    return new Promise((resolve, reject) => {
+      exec(command, (error, stdout, stderr) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve({ stdout, stderr, error });
+        }
+      });
+    });
   }
 
   streamToBuffer(readStream: Readable): Promise<Buffer> {
