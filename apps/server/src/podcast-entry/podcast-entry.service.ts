@@ -154,6 +154,20 @@ export class PodcastEntryService {
           'You cannot update other users podcastEntry',
         );
       }
+
+      // Deleting storage objects.
+      if (podcastEntry.b2AudioPath) {
+        console.log('Deleting audio object', podcastEntry.b2AudioPath);
+        await this.dmsService.deleteFile(podcastEntry.b2AudioPath);
+      }
+      if (podcastEntry.b2ImagePath) {
+        console.log('Deleting image object', podcastEntry.b2ImagePath);
+        await this.dmsService.deleteFile(podcastEntry.b2ImagePath);
+      }
+
+      // Regenerating the user's feed.
+      this.generateUserFeed(requestUser.id);
+
       output.push(
         await this.prismaService.podcastEntry.delete({
           where: {

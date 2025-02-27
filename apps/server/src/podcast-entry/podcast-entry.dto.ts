@@ -12,7 +12,7 @@ export const PodcastEntryUpdateDto = z.object({
 export type PodcastEntryUpdateDtoType = z.infer<typeof PodcastEntryUpdateDto>;
 
 export const PodcastEntryRemoveDto = z.object({
-  id: z.array(z.string().uuid()),
+  id: z.array(z.string().uuid()).or(z.string().uuid()),
 });
 export type PodcastEntryRemoveDtoType = z.infer<typeof PodcastEntryRemoveDto>;
 
