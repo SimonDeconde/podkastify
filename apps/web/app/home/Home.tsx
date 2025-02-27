@@ -5,14 +5,15 @@ export default function Home() {
     <section className="mx-auto px-4 py-24">
       <div className="mx-auto w-full text-center md:w-11/12  xl:w-9/12">
         <h1 className="mb-6 text-4xl font-extrabold leading-none tracking-normal md:text-6xl md:tracking-tight">
-          Join{' '}
-          <span className="inline w-full bg-gradient-to-r from-green-400 to-purple-500 bg-clip-text text-transparent">
-            your community
-          </span>{' '}
-          for Random Dinners !
+          Listen to{' '}
+          <span className="w-full bg-gradient-to-r from-green-400 to-purple-500 bg-clip-text text-transparent">
+            your Youtube videos
+          </span>
+          !
         </h1>
         <p className="my-8 px-0 text-lg md:text-xl lg:px-24">
-          Meet new people, enjoy great food, and let us handle the invitations.
+          Automatically convert Youtube videos to audio and listen to them on
+          any podcast app.
         </p>
         <div className="my-12 space-x-0 md:mb-8 md:space-x-2">
           <div className="flex flex-col items-center justify-center">
@@ -21,10 +22,10 @@ export default function Home() {
                 Private beta
               </h1>
               <p className="mb-8 text-lg text-white">
-                Open to a limited number of communities at the moment...
+                Open to a limited number of users at the moment...
               </p>
               <a
-                href="mailto:simon.deconde@podkastify.com"
+                href="mailto:beta@podkastify.com"
                 className="rounded bg-white px-4 py-2 font-bold text-purple-600 hover:bg-gray-200"
               >
                 Contact us
@@ -38,14 +39,6 @@ export default function Home() {
           <h2 className="font-heading tracking-px-n mb-5 text-center text-4xl font-bold leading-tight md:text-4xl">
             How it works
           </h2>
-          <p className="mx-auto mb-20 text-center text-lg font-medium md:max-w-xl">
-            Become a member by signing up and start hosting dinners with ease.
-            Pick a date that suits you, and our system will handle the
-            invitations, sending them out to community members who have 24 hours
-            to accept. This automated process ensures fairness and efficiency.
-            When your guest list is finalized, you can look forward to a
-            delightful dinner with new friends.
-          </p>
           <div className="-m-8 flex flex-wrap">
             <div className="w-full p-8 md:w-1/3">
               <div className="relative text-center">
@@ -74,11 +67,10 @@ export default function Home() {
                 </div>
                 <div className="mx-auto md:max-w-xs">
                   <h3 className="font-heading font-heading mb-5 text-xl font-bold leading-normal">
-                    Sign up with your community
+                    Add a Youtube link to Podkastify
                   </h3>
                   <p className="font-sans">
-                    You'll immediately be eligible to join dinners in your
-                    community.
+                    It'll be added to your personal podcast feed.
                   </p>
                 </div>
               </div>
@@ -110,10 +102,11 @@ export default function Home() {
                 </div>
                 <div className="mx-auto md:max-w-xs">
                   <h3 className="font-heading font-heading mb-5 text-xl font-bold leading-normal">
-                    Offer to host a dinner
+                    Grab your personal podcast feed URL
                   </h3>
                   <p className="font-sans">
-                    You pick the time, the place and the number of guests.
+                    Podkastify will create a podcast feed URL just for you. Just
+                    add it to your personal podcast app.
                   </p>
                 </div>
               </div>
@@ -137,11 +130,11 @@ export default function Home() {
                 </div>
                 <div className="mx-auto md:max-w-xs">
                   <h3 className="font-heading font-heading mb-5 text-xl font-bold leading-normal">
-                    Podkastify will take care of the rest.
+                    Keep adding new videos!
                   </h3>
                   <p className="font-sans">
-                    Podkastify will invite other community members to your
-                    dinner, taking care of all communications and reminders.
+                    Each new video you add to Podkastify will automatically
+                    appear in your podcast app.
                   </p>
                 </div>
               </div>
