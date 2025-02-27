@@ -45,17 +45,17 @@ export default function AddPodcastItem({}: Props) {
           }
         })}
       >
-        <div className="space-between flex gap-4">
+        <div className="space-between flex items-center gap-4">
           <div className="flex-1">
             <Input
               type="text"
               label="Youtube video URL"
+              title="e.g. https://www.youtube.com/watch?v=3rAFYRvutOk"
               isRequired={true}
               color={Boolean(errors.importUrl) ? 'danger' : undefined}
               isInvalid={Boolean(errors.importUrl)}
               errorMessage={errors.importUrl?.message}
               {...register('importUrl', { required: true })}
-              description="e.g. https://www.youtube.com/watch?v=3rAFYRvutOk"
             />
           </div>
           <Button

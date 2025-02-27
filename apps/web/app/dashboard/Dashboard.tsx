@@ -9,7 +9,7 @@ import MyPodcastItems from './MyPodcastItems';
 const Dashboard = () => {
   return (
     <>
-      <div className="space-between flex gap-2 py-12">
+      <div className="space-between flex items-center gap-2  py-12">
         <div className="w-64 flex-1">
           <AddPodcastItem />
         </div>
