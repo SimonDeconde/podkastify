@@ -356,6 +356,14 @@ export class PodcastEntryService {
         },
       });
     } catch (error) {
+      let errorMessage = '';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      if (typeof error === 'string') {
+        errorMessage = error;
+      }
+
       /*
        * Save error status.
        */
@@ -365,7 +373,7 @@ export class PodcastEntryService {
         },
         data: {
           status: PodcastEntryStatus.error,
-          processingLog: [podcastEntry.processingLog, error?.message]
+          processingLog: [podcastEntry.processingLog, errorMessage]
             .filter(isPresent)
             .join('\n-----\n'),
         },
