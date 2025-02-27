@@ -64,6 +64,7 @@ async function main() {
     lastName: 'User',
     email: 'simon.deconde+admin@gmail.com',
     password: 'password',
+    isVerified: true,
     roles: [Roles.Admin],
   });
   console.log(`Created new user: ${admin.user.email} (ID: ${admin.user.id})`);

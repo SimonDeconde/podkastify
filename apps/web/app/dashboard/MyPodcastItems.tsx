@@ -18,7 +18,7 @@ export default function MyPodcastItems() {
 
   return (
     <>
-      <h2 className="mb-2 text-xl">Your Items</h2>
+      <h2 className="mb-2 text-2xl">Your podcast items</h2>
       <ul className="flex flex-col gap-2">
         {myItems.records.length > 0 && (
           <>

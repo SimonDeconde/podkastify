@@ -26,7 +26,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 <Link
                   className="flex-none text-xl font-semibold dark:text-white"
                   href={RoutePath.DASHBOARD}
-                  aria-label="Sociable Spark"
+                  aria-label="Podkastify"
                 ></Link>
               </div>
               <div className="ms-auto flex w-full items-center justify-end sm:order-3 sm:justify-between sm:gap-x-3">
@@ -235,7 +235,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 href="#"
                 aria-label="podkastify"
               >
-                Sociable Spark
+                Podkastify
               </Link>
             </div>
             <nav

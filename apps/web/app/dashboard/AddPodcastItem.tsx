@@ -25,64 +25,52 @@ export default function AddPodcastItem({}: Props) {
   } = useForm<PodcastEntryCreateDtoType>({
     resolver: zodResolver(PodcastEntryCreateDto),
     defaultValues: {
-      importUrl: '',
+      importUrl: 'https://www.youtube.com/watch?v=3rAFYRvutOk',
     },
   });
   const createPodcastEntry = trpc.podcastEntryRouter.create.useMutation();
 
   return (
-    <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight">
-            Add new entry
-          </h2>
-        </div>
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form
-            className="space-y-6"
-            onSubmit={handleSubmit(async (data) => {
-              try {
-                const response = await createPodcastEntry.mutateAsync(data);
-                console.log(response);
+    <div>
+      <form
+        className="space-y-6"
+        onSubmit={handleSubmit(async (data) => {
+          try {
+            const response = await createPodcastEntry.mutateAsync(data);
 
-                toast.success('Podcast entry added successfully');
-                reset();
-              } catch (e) {
-                toast.error(
-                  'A problem occurred while trying to import this URL',
-                );
-              }
-            })}
+            toast.success('Podcast entry added successfully');
+            reset();
+          } catch (e) {
+            toast.error('A problem occurred while trying to import this URL');
+          }
+        })}
+      >
+        <div className="space-between flex gap-4">
+          <div className="flex-1">
+            <Input
+              type="text"
+              label="Youtube video URL"
+              isRequired={true}
+              color={Boolean(errors.importUrl) ? 'danger' : undefined}
+              isInvalid={Boolean(errors.importUrl)}
+              errorMessage={errors.importUrl?.message}
+              {...register('importUrl', { required: true })}
+            />
+          </div>
+          <Button
+            color="primary"
+            type="submit"
+            isLoading={createPodcastEntry.isLoading}
           >
-            <div className="space-between flex gap-4">
-              <div className="flex-1">
-                <Input
-                  type="text"
-                  label="Url"
-                  isRequired={true}
-                  color={Boolean(errors.importUrl) ? 'danger' : undefined}
-                  isInvalid={Boolean(errors.importUrl)}
-                  errorMessage={errors.importUrl?.message}
-                  {...register('importUrl', { required: true })}
-                />
-              </div>
-            </div>
-            <Button
-              color="primary"
-              type="submit"
-              isLoading={createPodcastEntry.isLoading}
-            >
-              Import
-            </Button>
-          </form>
-          {createPodcastEntry.error && (
-            <p className="mt-2 text-center text-sm text-red-600">
-              {createPodcastEntry.error.message}
-            </p>
-          )}
+            Import
+          </Button>
         </div>
-      </div>
-    </>
+      </form>
+      {createPodcastEntry.error && (
+        <p className="mt-2 text-center text-sm text-red-600">
+          {createPodcastEntry.error.message}
+        </p>
+      )}
+    </div>
   );
 }

@@ -76,8 +76,8 @@ export class DmsService {
 
       return {
         url: isPublic
-          ? (await this.getFileUrl(key)).url
-          : (await this.getPresignedSignedUrl(key)).url,
+          ? this.getFileUrl(key)
+          : await this.getPresignedSignedUrl(key),
         key,
         isPublic,
         uploadResult,
@@ -95,13 +95,9 @@ export class DmsService {
         Delimiter: '/',
       };
 
-      console.log(command);
-
       const listObjectsV2Response = await this.client.send(
         new ListObjectsV2Command(command),
       );
-
-      console.log(listObjectsV2Response);
 
       const files = listObjectsV2Response.Contents?.map((object) => ({
         key: object.Key,
@@ -116,8 +112,8 @@ export class DmsService {
     }
   }
 
-  async getFileUrl(key: string) {
-    return { url: `https://s3.backblazeb2.com/${this.bucketName}/${key}` };
+  getFileUrl(key: string) {
+    return `https://${this.bucketName}.s3.us-east-005.backblazeb2.com/${key}`;
   }
 
   async deleteFile(key: string) {
@@ -152,45 +148,10 @@ export class DmsService {
         expiresIn: 60 * 60 * 24, // 24 hours
       });
 
-      return { url };
+      return url;
     } catch (error) {
       // this.logger.error(error);
       throw new InternalServerErrorException(error);
     }
   }
-
-  // async uploadMultiplePublicFiles(files: Express.Multer.File[]) {
-  //   try {
-  //     const uploadPromises = files.map(async (file) => {
-  //       const key = `${uuidv4()}`;
-
-  //       const command = new PutObjectCommand({
-  //         Bucket: this.bucketName,
-  //         Key: key,
-  //         Body: file.buffer,
-  //         ContentType: file.mimetype,
-  //         ACL: 'public-read',
-  //       });
-
-  //       const uploadResult = await this.client.send(command);
-
-  //       console.log(
-  //         `File uploaded to S3: ${file.originalname} - ${uploadResult.ETag}`,
-  //       );
-
-  //       // this.logger.debug(
-  //       //   `File uploaded to S3: ${file.originalname} - ${uploadResult.ETag}`,
-  //       // );
-
-  //       return {
-  //         url: (await this.getFileUrl(key)).url,
-  //       };
-  //     });
-
-  //     return Promise.all(uploadPromises);
-  //   } catch (error) {
-  //     // this.logger.error(error);
-  //     throw new InternalServerErrorException(error);
-  //   }
-  // }
 }

@@ -137,10 +137,10 @@ export default function Home() {
                 </div>
                 <div className="mx-auto md:max-w-xs">
                   <h3 className="font-heading font-heading mb-5 text-xl font-bold leading-normal">
-                    Sociable Spark will take care of the rest.
+                    Podkastify will take care of the rest.
                   </h3>
                   <p className="font-sans">
-                    Sociable Spark will invite other community members to your
+                    Podkastify will invite other community members to your
                     dinner, taking care of all communications and reminders.
                   </p>
                 </div>

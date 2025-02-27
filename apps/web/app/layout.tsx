@@ -7,8 +7,8 @@ import { Providers } from '@web/components/Providers';
 import { UserProvider } from './user/UserContext';
 
 export const metadata: Metadata = {
-  title: 'Sociable Spark',
-  description: 'Get to know your community',
+  title: 'Podkastify',
+  description: 'Listen to your Youtube videos!',
 };
 
 export default function RootLayout({

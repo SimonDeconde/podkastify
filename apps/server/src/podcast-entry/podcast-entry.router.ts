@@ -70,6 +70,12 @@ export class PodcastEntryRouter {
             );
             return { records: items.map(podcastEntryToDto) };
           }),
+
+        getPodcastFeedUrl: this.trpcService
+          .protectedProcedure([Roles.Admin, Roles.User])
+          .query(async ({ ctx }) => {
+            return await this.podcastEntryService.getPodcastFeedUrl(ctx.user);
+          }),
       }),
     };
   }

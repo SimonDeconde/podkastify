@@ -49,7 +49,7 @@ export default function AppLayout({
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                 alt=""
               />
-              <p className="font-bold text-inherit">Sociable Spark</p>
+              <p className="font-bold text-inherit">Podkastify</p>
             </Link>
           </NavbarBrand>
 

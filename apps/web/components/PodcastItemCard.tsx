@@ -1,7 +1,9 @@
+import { LinkIcon } from '@heroicons/react/24/outline';
 import { Card, CardHeader } from '@nextui-org/card';
 import { PodcastEntryDto } from '@server/podcast-entry/entities/podcast-entry.entity';
-import { formatDateTime } from '@shared/utils';
+import { formatDate, timeAgo } from '@shared/utils';
 import Link from 'next/link';
+import { PodcastEntryStatusBadge } from './Badge';
 
 type Props = {
   item: PodcastEntryDto;
@@ -9,18 +11,25 @@ type Props = {
 
 export const PodcastItemCard = ({ item }: Props) => {
   return (
-    <Card className="max-w-md">
+    <Card>
       <CardHeader className="justify-between">
-        <div className="flex items-center gap-5">
-          {/* <Avatar isBordered radius="full" size="md" name={community.ticker} /> */}
-          <div className="flex flex-col items-start justify-center gap-1">
-            <h4 className="text-small font-semibold leading-none text-default-600">
-              <Link color="foreground" href={item.url ?? 'PROBLEM!!'}>
-                {item.title}
-                <br /> {item.pubDate ? formatDateTime(item.pubDate) : '--'}
-                <br /> {item.status}
-              </Link>
-            </h4>
+        <div className="flex flex-col gap-5">
+          <h4 className="text-xl">{item.title}</h4>
+          <div className="flex gap-2">
+            <Link
+              color="foreground"
+              href={item.importUrl ?? 'PROBLEM!!'}
+              className="flex items-center gap-1"
+              key={item.id}
+            >
+              Source <LinkIcon className="h-4 w-4" />
+            </Link>
+            <span>·</span>
+            Published: {item.pubDate ? formatDate(item.pubDate) : '--'}
+            <span>·</span>
+            Added: {item.createdAt ? timeAgo(item.createdAt) : '--'}
+            <span>·</span>
+            Status: {<PodcastEntryStatusBadge status={item.status} />}
           </div>
         </div>
       </CardHeader>
