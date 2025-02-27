@@ -25,7 +25,7 @@ export default function AddPodcastItem({}: Props) {
   } = useForm<PodcastEntryCreateDtoType>({
     resolver: zodResolver(PodcastEntryCreateDto),
     defaultValues: {
-      importUrl: 'https://www.youtube.com/watch?v=3rAFYRvutOk',
+      importUrl: '',
     },
   });
   const createPodcastEntry = trpc.podcastEntryRouter.create.useMutation();
@@ -55,6 +55,7 @@ export default function AddPodcastItem({}: Props) {
               isInvalid={Boolean(errors.importUrl)}
               errorMessage={errors.importUrl?.message}
               {...register('importUrl', { required: true })}
+              description="e.g. https://www.youtube.com/watch?v=3rAFYRvutOk"
             />
           </div>
           <Button

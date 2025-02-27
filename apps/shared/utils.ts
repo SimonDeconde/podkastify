@@ -1,4 +1,4 @@
-import { format, formatDistanceToNow, isSameDay } from "date-fns";
+import { format, formatDistanceToNowStrict, isSameDay } from "date-fns";
 
 export const sleep = (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -53,7 +53,7 @@ export const formatHhMmSsDuration = (seconds: number): string => {
 };
 
 export const timeAgo = (dt: Date): string => {
-  return formatDistanceToNow(dt) + ` ago`;
+  return formatDistanceToNowStrict(dt) + ` ago`;
 };
 
 export const escapeXml = (
