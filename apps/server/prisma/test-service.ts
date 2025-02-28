@@ -9,12 +9,14 @@ const prisma = new PrismaClient();
 async function main() {
   const app = await NestFactory.createApplicationContext(AppModule);
   const prismaService = app.get(PrismaService);
-  const eventService = app.get(PodcastEntryService);
+  const podcastEntryService = app.get(PodcastEntryService);
 
-  const event = await prismaService.event.findFirst();
+  const podcastEntry = await prismaService.podcastEntry.findFirst();
 
-  if (event) {
-    eventService.invite({ id: event.id });
+  if (podcastEntry) {
+    // Do something better here. At the time of writing this, the findById is the only
+    // safe method to replace here.
+    podcastEntryService.findById(podcastEntry.id);
   }
 
   await app.close();

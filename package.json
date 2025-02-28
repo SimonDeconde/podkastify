@@ -19,7 +19,6 @@
     "db:seed": "pnpm run --filter=server db:seed",
     "test-dl": "pnpm run --filter=server test-dl",
     "db:reset": "pnpm run --filter=server db:reset",
-    "db:reset-skydeck": "pnpm run --filter=server db:reset-skydeck",
     "test-service": "pnpm run --filter=server test-service"
   },
   "author": "",
