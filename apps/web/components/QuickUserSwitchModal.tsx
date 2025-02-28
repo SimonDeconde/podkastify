@@ -43,7 +43,7 @@ export const QuickUserSwitchModal = ({
   });
 
   return (
-    <Modal isOpen={disclosure.isOpen} onOpenChange={disclosure.onOpenChange}>
+    <Modal isOpen={disclosure.isOpen} onOpenChange={disclosure.onChange}>
       <ModalContent>
         {(onClose) => (
           <>
