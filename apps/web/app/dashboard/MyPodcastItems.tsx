@@ -2,6 +2,7 @@
 
 import { InformationCircleIcon, LinkIcon } from '@heroicons/react/24/outline';
 import {
+  Image,
   Table,
   TableBody,
   TableCell,
@@ -46,22 +47,33 @@ export default function MyPodcastItems() {
             {myItems.records.map((item) => (
               <TableRow key={item.id}>
                 <TableCell>
-                  <span>{item.title}</span>
-                  <div className="mt-1 flex items-center gap-1">
-                    <Link
-                      color="foreground"
-                      href={item.importUrl ?? 'PROBLEM!!'}
-                      key={item.id}
-                      title="Source URL"
-                    >
-                      <LinkIcon className="h-4 w-4" />
-                    </Link>
+                  <div className="flex gap-3">
+                    {item.b2ImagePath && (
+                      <Image
+                        src={`https://podkastify.com/cdn-cgi/image/fit=scale-down,width=100/https://dev-podkastify.s3.us-east-005.backblazeb2.com/${item.b2ImagePath}`}
+                        alt={item.title}
+                        width={100}
+                      />
+                    )}
+                    <div>
+                      <span>{item.title}</span>
+                      <div className="mt-1 flex items-center gap-1">
+                        <Link
+                          color="foreground"
+                          href={item.importUrl ?? 'PROBLEM!!'}
+                          key={item.id}
+                          title="Source URL"
+                        >
+                          <LinkIcon className="h-4 w-4" />
+                        </Link>
 
-                    <Tooltip
-                      content={`Processing time ${item.processingTimeMs && ceil(item.processingTimeMs / 1000)} sec`}
-                    >
-                      <InformationCircleIcon className="h-4 w-4" />
-                    </Tooltip>
+                        <Tooltip
+                          content={`Processing time ${item.processingTimeMs && ceil(item.processingTimeMs / 1000)} sec`}
+                        >
+                          <InformationCircleIcon className="h-4 w-4" />
+                        </Tooltip>
+                      </div>
+                    </div>
                   </div>
                 </TableCell>
                 <TableCell className="px-6 py-4 text-center">

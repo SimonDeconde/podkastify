@@ -74,6 +74,7 @@ services:
       - key: S3_SECRET_ACCESS_KEY
         sync: false # provide this in the Render dashboard.
       - key: S3_BUCKET_NAME
+        sync: false # provide this in the Render dashboard.
 
 databases:
   - name: podkastify-db

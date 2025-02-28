@@ -14,6 +14,7 @@ export type PodcastEntryDto = {
   pubDate?: Date;
   image?: string;
   durationMs?: number;
+  b2ImagePath?: string;
 };
 
 export const podcastEntryToDto = (podcastEntry: PodcastEntry) => {
@@ -30,5 +31,6 @@ export const podcastEntryToDto = (podcastEntry: PodcastEntry) => {
     language: podcastEntry.language,
     pubDate: podcastEntry.pubDate,
     durationMs: podcastEntry.durationMs,
+    b2ImagePath: podcastEntry.b2ImagePath,
   } as PodcastEntryDto;
 };
