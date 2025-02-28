@@ -1,4 +1,4 @@
-import { Chip } from '@nextui-org/chip';
+import { Chip } from '@heroui/react';
 import { useUserContext } from '@web/app/user/UserContext';
 import Link from 'next/link';
 

@@ -1,7 +1,5 @@
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import { Divider } from '@nextui-org/divider';
-import { Tooltip } from '@nextui-org/tooltip';
+import { Card, CardBody, CardHeader, Divider, Tooltip } from '@heroui/react';
 import clsx from 'clsx';
 import React from 'react';
 

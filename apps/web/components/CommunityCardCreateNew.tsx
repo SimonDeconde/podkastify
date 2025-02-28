@@ -1,5 +1,5 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { Link } from '@nextui-org/link';
+import { Link } from '@heroui/react';
 import { RoutePath } from '@shared/route-path';
 
 export const CommunityCardCreateNew = () => {

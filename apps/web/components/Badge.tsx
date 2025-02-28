@@ -1,4 +1,4 @@
-import { Chip, ChipProps } from '@nextui-org/chip';
+import { Chip, ChipProps } from '@heroui/react';
 import { PodcastEntryStatus } from '@prisma/client';
 
 type Props = {

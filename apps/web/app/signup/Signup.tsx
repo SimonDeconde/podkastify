@@ -1,9 +1,8 @@
 'use client';
 
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { Button, Input } from '@heroui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@nextui-org/button';
-import { Input } from '@nextui-org/input';
 import { UserSignupDto, UserSignupDtoType } from '@server/user/user.dto';
 import { RoutePath } from '@shared/route-path';
 import { useTrpc } from '@web/contexts/TrpcContext';

@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/react';
 import { useTrpc } from '@web/contexts/TrpcContext';
 import { useCallback, useState } from 'react';
 import { toast } from 'sonner';

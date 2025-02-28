@@ -51,6 +51,9 @@ export const formatDate = (dt: Date): string => {
 export const formatHhMmSsDuration = (seconds: number): string => {
   return new Date(seconds * 1000).toISOString().substr(11, 8);
 };
+export const formatMmSsDuration = (seconds: number): string => {
+  return new Date(seconds * 1000).toISOString().substr(14, 5);
+};
 
 export const timeAgo = (dt: Date): string => {
   return formatDistanceToNowStrict(dt) + ` ago`;

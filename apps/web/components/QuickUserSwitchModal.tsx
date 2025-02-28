@@ -1,6 +1,12 @@
-import { Modal, ModalBody, ModalContent, ModalHeader } from '@nextui-org/modal';
-import { Select, SelectItem } from '@nextui-org/select';
-import type { UseDisclosureReturn } from '@nextui-org/use-disclosure';
+import type { UseDisclosureReturn } from '@heroui/react';
+import {
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalHeader,
+  Select,
+  SelectItem,
+} from '@heroui/react';
 import { RoutePath } from '@shared/route-path';
 import { getEmailRelevantName } from '@shared/utils';
 import { useUserContext } from '@web/app/user/UserContext';

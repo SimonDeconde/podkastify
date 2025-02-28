@@ -1,6 +1,6 @@
 'use client';
 
-import { Spinner } from '@nextui-org/spinner';
+import { Spinner } from '@heroui/react';
 import { RoutePath } from '@shared/route-path';
 import { useTrpc } from '@web/contexts/TrpcContext';
 import { useRouter } from 'next/navigation';

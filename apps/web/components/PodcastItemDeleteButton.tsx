@@ -1,5 +1,5 @@
 import { ArrowPathIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/react';
 import { PodcastEntryDto } from '@server/podcast-entry/entities/podcast-entry.entity';
 import { useTrpc } from '@web/contexts/TrpcContext';
 import React from 'react';

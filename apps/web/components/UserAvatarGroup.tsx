@@ -1,4 +1,4 @@
-import { Avatar, AvatarGroup } from '@nextui-org/avatar';
+import { Avatar, AvatarGroup } from '@heroui/react';
 import { UserDto } from '@server/user/entities/user.entity';
 
 type Props = {

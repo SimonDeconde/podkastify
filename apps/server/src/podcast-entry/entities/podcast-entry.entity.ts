@@ -6,6 +6,7 @@ export type PodcastEntryDto = {
   createdAt: Date;
   updatedAt: Date;
   importUrl: string;
+  processingTimeMs?: number;
   author?: string;
   title?: string;
   description?: string;
@@ -22,6 +23,7 @@ export const podcastEntryToDto = (podcastEntry: PodcastEntry) => {
     createdAt: podcastEntry.createdAt,
     updatedAt: podcastEntry.updatedAt,
     importUrl: podcastEntry.importUrl,
+    processingTimeMs: podcastEntry.processingTimeMs,
     author: podcastEntry.author,
     title: podcastEntry.title,
     description: podcastEntry.description,

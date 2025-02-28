@@ -1,20 +1,18 @@
 // import type { Config } from 'tailwindcss';
-import { nextui } from '@nextui-org/theme';
-
-// const withMT = require('@material-tailwind/react/utils/withMT');
+import { heroui } from '@heroui/react';
 
 const config = {
   content: [
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@nextui-org/theme/**/*.{js,ts,jsx,tsx}',
+    '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   important: true,
   theme: {
     extend: {},
   },
-  plugins: [nextui()],
+  plugins: [heroui()],
   darkMode: 'class',
 };
 export default config;

@@ -1,23 +1,21 @@
 'use client';
 
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import { Button } from '@nextui-org/button';
 import {
+  Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownSection,
   DropdownTrigger,
-} from '@nextui-org/dropdown';
-import { Link } from '@nextui-org/link';
-import { useDisclosure } from '@nextui-org/modal';
-import {
+  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-} from '@nextui-org/navbar';
-import { User } from '@nextui-org/user';
+  useDisclosure,
+  User,
+} from '@heroui/react';
 import { RoutePath } from '@shared/route-path';
 import { useUserContext } from '@web/app/user/UserContext';
 import NextAdapterApp from 'next-query-params/app';
@@ -66,18 +64,11 @@ export default function AppLayout({
                           src: currentUser.profilePicUrl ?? undefined,
                         }}
                         className="transition-transform"
-                        // description="@tonyreichert"
                         name={currentUser.firstName}
                       />
                     </DropdownTrigger>
                     <DropdownMenu aria-label="User Actions" variant="flat">
                       <DropdownSection showDivider>
-                        <DropdownItem key="profile" className="h-14 gap-2">
-                          <p className="font-bold">Signed in as</p>
-                          <p className="font-bold">
-                            {currentUser.firstName} {currentUser.lastName}
-                          </p>
-                        </DropdownItem>
                         <DropdownItem
                           key="dashboard"
                           href={RoutePath.DASHBOARD}
@@ -87,7 +78,7 @@ export default function AppLayout({
                         <DropdownItem
                           key="logout"
                           color="danger"
-                          onClick={(e) => {
+                          onPress={(e: any) => {
                             e.preventDefault();
                             logout();
                             window.location.href = RoutePath.HOME;
@@ -102,7 +93,6 @@ export default function AppLayout({
                           key="delete"
                           className="text-danger"
                           color="danger"
-                          shortcut="⌘⇧D"
                           description="Switch to another user"
                           startContent={
                             <ArrowsRightLeftIcon className="h-6 w-6" />
