@@ -1,4 +1,3 @@
-import type { UseDisclosureReturn } from '@heroui/react';
 import {
   Modal,
   ModalBody,
@@ -6,6 +5,7 @@ import {
   ModalHeader,
   Select,
   SelectItem,
+  UseDisclosureProps,
 } from '@heroui/react';
 import { RoutePath } from '@shared/route-path';
 import { getEmailRelevantName } from '@shared/utils';
@@ -17,7 +17,7 @@ import { LoadingSpinner } from './LoadingSpinner';
 export const QuickUserSwitchModal = ({
   disclosure,
 }: {
-  disclosure: UseDisclosureReturn;
+  disclosure: UseDisclosureProps;
 }) => {
   const { trpc } = useTrpc();
 
