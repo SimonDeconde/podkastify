@@ -32,7 +32,12 @@ export const PodcastEntryStatusBadge = (props: Props) => {
   }
 
   return (
-    <Chip color={color} size="sm" variant="faded">
+    <Chip
+      className="gap-1 border-none capitalize text-default-600"
+      color={color}
+      size="sm"
+      variant="dot"
+    >
       {text}
     </Chip>
   );
