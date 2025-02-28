@@ -165,9 +165,6 @@ export class PodcastEntryService {
         await this.dmsService.deleteFile(podcastEntry.b2ImagePath);
       }
 
-      // Regenerating the user's feed.
-      this.generateUserFeed(requestUser.id);
-
       output.push(
         await this.prismaService.podcastEntry.delete({
           where: {
@@ -176,6 +173,10 @@ export class PodcastEntryService {
         }),
       );
     }
+
+    // Regenerating the user's feed.
+    this.refreshUserFeed(requestUser.id);
+
     return output;
   }
 
@@ -342,13 +343,8 @@ export class PodcastEntryService {
       /*
        * Update user's feed.
        */
-      const feedXml = await this.generateUserFeed(requestUser.id);
-      await this.dmsService.uploadSingleFile({
-        key: getUserFeedPath(requestUser.id),
-        buffer: Buffer.from(feedXml, 'utf-8'),
-        mimeType: 'application/xml',
-        isPublic: true,
-      });
+      await this.refreshUserFeed(requestUser.id);
+
       await this.prismaService.podcastEntry.update({
         where: {
           id: podcastEntry.id,
@@ -431,7 +427,7 @@ export class PodcastEntryService {
     });
   }
 
-  private async generateUserFeed(userId: string): Promise<string> {
+  private async refreshUserFeed(userId: string): Promise<boolean> {
     const user = await this.prismaService.user.findUniqueOrThrow({
       where: { id: userId },
     });
@@ -445,7 +441,16 @@ export class PodcastEntryService {
       },
     });
 
-    return this.generateFeedXml(user, podcastEntries);
+    const feedXml = this.generateFeedXml(user, podcastEntries);
+
+    const { key } = await this.dmsService.uploadSingleFile({
+      key: getUserFeedPath(userId),
+      buffer: Buffer.from(feedXml, 'utf-8'),
+      mimeType: 'application/xml',
+      isPublic: true,
+    });
+
+    return Boolean(key);
   }
 
   private generateItemXml(podcastEntry: PodcastEntry): string {
