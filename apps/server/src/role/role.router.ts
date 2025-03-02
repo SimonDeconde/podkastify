@@ -53,7 +53,7 @@ export class RoleRouter {
 
         // get role by id
         findById: this.trpcService
-          .publicProcedure()
+          .protectedProcedure()
           .input(RoleFindByIdDto)
           .query(async ({ input }) => {
             return this.roleService.findById(input.id);
@@ -61,7 +61,7 @@ export class RoleRouter {
 
         // get all roles
         findAll: this.trpcService
-          .publicProcedure()
+          .protectedProcedure()
           .input(RoleFindAllDto)
           .query(async ({ input }) => {
             return this.roleService.findAll(input);

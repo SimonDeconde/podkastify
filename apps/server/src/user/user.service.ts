@@ -415,7 +415,5 @@ export class UserService {
     // send email with random password
     await this.emailService.sendResetPassword(user, randomPassword);
     console.info('Password reset for', user.email, 'to', randomPassword);
-
-    return 'hello';
   }
 }

@@ -54,7 +54,7 @@ export class PodcastEntryRouter {
 
         // get podcastEntry by id
         findById: this.trpcService
-          .publicProcedure()
+          .protectedProcedure()
           .input(PodcastEntryFindByIdDto)
           .query(async ({ input }) => {
             return podcastEntryToDto(

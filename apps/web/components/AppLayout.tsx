@@ -79,7 +79,6 @@ export default function AppLayout({
                           key="logout"
                           color="danger"
                           onPress={(e: any) => {
-                            e.preventDefault();
                             logout();
                             window.location.href = RoutePath.HOME;
                           }}

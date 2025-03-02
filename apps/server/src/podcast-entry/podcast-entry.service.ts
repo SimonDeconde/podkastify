@@ -219,7 +219,7 @@ export class PodcastEntryService {
     const filepath = `/tmp/${uuid}.mp3`;
 
     const command = this.getYtDlpCmd(
-      `-x --audio-format mp3 --write-description --write-info-json --no-progress --rm-cache-dir -v --extractor-args "youtube:player-client=tv;formats=incomplete" --output ${filepath} ${url}`,
+      `-x --audio-format mp3 --no-progress --extractor-args "youtube:player-client=tv;formats=incomplete" --output ${filepath} ${url}`,
     );
 
     const { stdout, stderr, error } = await this.executeCommand(command);
@@ -488,10 +488,8 @@ export class PodcastEntryService {
           <title>${escapeXml(feedTitle)}</title>
           <googleplay:author>${userFirstName}</googleplay:author>
           <rawvoice:rating>TV-G</rawvoice:rating>
-          <rawvoice:location>San Francisco, California</rawvoice:location>
           <rawvoice:frequency>Weekly</rawvoice:frequency>
           <author>${userFirstName}</author>
-          <email>${escapeXml(user.email)}</email>
           <itunes:author>${userFirstName}</itunes:author>
           <image>
             <url>${podcastImage}</url>
@@ -500,7 +498,6 @@ export class PodcastEntryService {
           </image>
           <itunes:owner>
             <itunes:name>${userFirstName}</itunes:name>
-            <itunes:email>${escapeXml(user.email)}</itunes:email>
           </itunes:owner>
           <itunes:keywords>personal</itunes:keywords>
           <copyright>${userFirstName} ${new Date().getFullYear()}</copyright>

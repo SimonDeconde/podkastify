@@ -4,12 +4,10 @@ import { Button, Input } from '@heroui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { UserLoginDtoType, UserResetPasswordDto } from '@server/user/user.dto';
 import { useTrpc } from '@web/contexts/TrpcContext';
-import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
 export default function ForgotPassword() {
-  const router = useRouter();
   const { trpc } = useTrpc();
   const {
     register,
@@ -33,7 +31,7 @@ export default function ForgotPassword() {
           className="space-y-6"
           onSubmit={handleSubmit(async (data) => {
             try {
-              const response = await resetPassword.mutate(data);
+              resetPassword.mutate(data);
               toast.success('Email sent!');
               reset();
             } catch (e) {
